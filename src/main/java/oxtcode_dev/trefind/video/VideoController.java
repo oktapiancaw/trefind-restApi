@@ -2,6 +2,8 @@ package oxtcode_dev.trefind.video;
 
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,30 +14,30 @@ import java.util.List;
 public class VideoController {
     private final VideoService videoService;
 
-//    @GetMapping
-//    public ResponseEntity<List<Video>> getData() {
-//        return videoService.GetAllVideo();
-//    }
+    @GetMapping
+    public ResponseEntity<List<Video>> getData() {
+        return videoService.GetAllVideo();
+    }
 //
-//    @GetMapping(path = "{channelid}")
-//    public ResponseEntity<Video> getDataById(@PathVariable("channelid") String channelId) {
-//        return videoService.GetVideoById(channelId);
-//    }
+    @GetMapping(path = "{channelId}")
+    public ResponseEntity<Video> getDataById(@PathVariable("channelId") String channelId) {
+        return videoService.GetVideoById(channelId);
+    }
 
     @PostMapping(consumes = "application/json")
     public void addData(@RequestBody Video video) {
         videoService.AddVideo(video);
     }
-//
-//    @PutMapping(path = "{channelid}")
-//    public ResponseEntity<Video> updateData(@PathVariable("channelid") String channelId, @RequestBody Video video){
-//        return videoService.UpdateVideo(channelId, video);
-//    }
-//
-//    @DeleteMapping(path = "{channelid}")
-//    public ResponseEntity<HttpStatus> deleteData(@PathVariable("channelid") String channelId) {
-//        return videoService.DeleteVideo(channelId);
-//    }
+
+    @PutMapping(path = "{channelid}")
+    public ResponseEntity<Video> updateData(@PathVariable("channelid") String channelId, @RequestBody Video video){
+        return videoService.UpdateVideo(channelId, video);
+    }
+
+    @DeleteMapping(path = "{channelid}")
+    public ResponseEntity<HttpStatus> deleteData(@PathVariable("channelid") String channelId) {
+        return videoService.DeleteVideo(channelId);
+    }
 //
 //    @ResponseStatus(HttpStatus.BAD_REQUEST)
 //    @ExceptionHandler(MethodArgumentNotValidException.class)

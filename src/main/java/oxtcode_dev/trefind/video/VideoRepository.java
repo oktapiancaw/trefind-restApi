@@ -37,8 +37,8 @@ public class VideoRepository extends JdbcDaoSupport implements VideoDAO{
     }
 
     @Override
-    public boolean update(Video video) {
-        return getJdbcTemplate().update(UPDATE, video.getTitle(), video.getChannelName(), video.getPublishedAt(), video.getChannelId()) > 0;
+    public Boolean update(Video video, String channelId) {
+        return getJdbcTemplate().update(UPDATE, video.getTitle(), video.getChannelName(), video.getPublishedAt(), channelId) > 0;
     }
 
     @Override
@@ -52,8 +52,8 @@ public class VideoRepository extends JdbcDaoSupport implements VideoDAO{
     }
 
     @Override
-    public boolean delete(Video video) {
-        return false;
+    public boolean delete(String channelId) {
+        return getJdbcTemplate().update(DELETE, channelId) > 0;
     }
 
     @Override
