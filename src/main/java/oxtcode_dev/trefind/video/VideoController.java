@@ -23,6 +23,10 @@ public class VideoController {
     public ResponseEntity<Video> getDataById(@PathVariable("channelId") String channelId) {
         return videoService.GetVideoById(channelId);
     }
+    @GetMapping(path = "getpertamina")
+    public ResponseEntity<List<Video>> getDataSpecific() {
+        return videoService.GetVideoSpecific();
+    }
 
     @PostMapping(consumes = "application/json")
     public void addData(@RequestBody Video video) {

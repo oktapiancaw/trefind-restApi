@@ -26,6 +26,16 @@ public class VideoService {
         }
     }
 
+    public ResponseEntity<List<Video>> GetVideoSpecific() {
+        List<Video> data = videoRepository.getSpecificData();
+        System.out.println(data);
+        if(data != null){
+            return new ResponseEntity<>(data, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     public void AddVideo(Video video) {
         videoRepository.insert(video);
     }

@@ -20,7 +20,9 @@ public class VideoRepository extends JdbcDaoSupport implements VideoDAO{
     private final String UPDATE = "UPDATE videos SET title=?, channelName=?, publishedAt=? WHERE channelId=?";
     private final String DELETE = "DELETE FROM videos WHERE channelId=?";
     private final String SELECT_BY_ID = "SELECT channelId, title, channelName, publishedAt FROM videos WHERE channelId=?";
-    private final String SELECT_ALL = "SELECT channelId, title, channelName, publishedAt FROM videos";
+    private final String SELECT_ALL = "SELECT channelId, title, channelName, publishedAt FROM videos ORDER BY str_to_date(publishedAt, '%Y-%m-%dT%H:%i:%sZ') DESC";
+    private final String SELECT_SPECIFIC = "SELECT channelId, title, channelName, publishedAt FROM videos WHERE title LIKE '%minyak pertamina%'";
+
 
     private static Logger LOGGER = LoggerFactory.getLogger(VideoRepository.class.getName());
 
@@ -47,6 +49,12 @@ public class VideoRepository extends JdbcDaoSupport implements VideoDAO{
     }
 
     @Override
+    public List<Video> getSpecificData() {
+        List<Video> data = getJdbcTemplate().query(SELECT_SPECIFIC, new VideoRowMapper());
+        return data;
+    }
+
+    @Override
     public List<Video> getAll() {
         return getJdbcTemplate().query(SELECT_ALL, new VideoRowMapper());
     }
@@ -56,10 +64,6 @@ public class VideoRepository extends JdbcDaoSupport implements VideoDAO{
         return getJdbcTemplate().update(DELETE, channelId) > 0;
     }
 
-    @Override
-    public Video getSpecificData(String title) {
-        return null;
-    }
 
     private class VideoRowMapper implements RowMapper<Video> {
         @Override

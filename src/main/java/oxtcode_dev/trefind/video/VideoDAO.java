@@ -11,7 +11,7 @@ public interface VideoDAO {
 
     public Video getByChannelId(String channelId);
 
-    public Video getSpecificData(String title);
+    public List<Video> getSpecificData();
 
     public List<Video> getAll();
 }
